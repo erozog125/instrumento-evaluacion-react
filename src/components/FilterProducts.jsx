@@ -2,10 +2,11 @@ import React, {useState} from 'react'
 import { Product } from './Product'
 import { products } from '../assets/products.js'
 
+
 export const FilterProducts = () => {
-  const [PriceMin, setPriceMin] = useState(0)
-  const [PriceMax, setPriceMax] = useState(0)
-  const [ResultPrice, setResultPrice] = useState(0)
+  const [PriceMin, setPriceMin] = useState()
+  const [PriceMax, setPriceMax] = useState()
+  const [filteredProducts, setFilteredProducts] = useState(products)
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -63,13 +64,15 @@ export const FilterProducts = () => {
         <div className="flex justify-center">
           <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
           
-          onClick={() => {
-            const filteredProducts = products.filter((product) => {
-              const price = parseFloat(product.price);
-              return price >= PriceMin && price <= PriceMax;
-            });
-            setResultPrice(filteredProducts);
-          }}
+        onClick ={() => {
+            const filtered = products.filter((product) => {
+              const price = product.price
+              return (PriceMin ? price >= PriceMin : true) && (PriceMax ? price <= PriceMax : true)
+            })
+
+            setFilteredProducts(filtered)
+          }
+        }
           >
             Aplicar Filtros
           </button>
@@ -77,8 +80,10 @@ export const FilterProducts = () => {
       </div>
       <div>
         {
-          products.map((product) => (
+          filteredProducts.map((product) => (
+
             <Product key={product.sku} {...product} />
+
           ))
         }
       </div>
