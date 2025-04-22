@@ -4,6 +4,8 @@ import { products } from '../assets/products.js'
 
 export const FilterProducts = () => {
   const [searchTerm, setSearchTerm] = useState('')
+  const [minPrice, setMinPrice] = useState('')
+  const [maxPrice, setMaxPrice] = useState('')
 
   const filteredProducts = products.filter(product => 
     product.nameProduct.toLowerCase().includes(searchTerm.toLowerCase())
@@ -37,11 +39,17 @@ export const FilterProducts = () => {
               type="number"
               placeholder="Min"
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
+              min="0"
             />
             <input
               type="number"
               placeholder="Max"
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+              min="0"
             />
           </div>
         </div>
