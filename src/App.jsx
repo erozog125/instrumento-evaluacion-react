@@ -10,3 +10,11 @@ function App() {
 }
 
 export default App
+
+/*
+commit 
+
+git add .
+git commit -m "mensaje"
+
+*/
