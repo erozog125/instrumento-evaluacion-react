@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Product } from './Product'
 import { products } from '../assets/products.js'
 
 export const FilterProducts = () => {
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const filteredProducts = products.filter(product => 
+    product.nameProduct.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -18,6 +24,8 @@ export const FilterProducts = () => {
             type="text"
             placeholder="Escribe el nombre del producto..."
             className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
@@ -59,12 +67,18 @@ export const FilterProducts = () => {
           </button>
         </div>
       </div>
-      <div>
-        {
-          products.map((product) => (
-            <Product key={product.sku} {...product} />
-          ))
-        }
+      <div className="w-full max-w-4xl mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[200px]">
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
+              <Product key={product.sku} {...product} />
+            ))
+          ) : (
+            <div className="col-span-full flex items-center justify-center h-full">
+              <p className="text-gray-500 text-lg">No se encontraron productos</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
