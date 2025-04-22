@@ -28,12 +28,6 @@ export const FilterProducts = () => {
           />
         </div>
 
-        <ul>
-          {filteredProducts.map((product) => (
-            <li key={product.id}>{product.name}</li>
-          ))}
-        </ul>
-
         {/* Filtro por precio */}
         <div className="flex flex-col space-y-2">
           <label className="text-lg font-medium text-gray-700">Filtrar por precio</label>
