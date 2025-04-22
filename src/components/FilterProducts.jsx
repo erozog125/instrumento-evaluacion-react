@@ -1,8 +1,24 @@
 import React from 'react'
 import { Product } from './Product'
 import { products } from '../assets/products.js'
+import useState from 'react';
 
 export const FilterProducts = () => {
+
+  const listCategories = ['Electrónica', 'Moda', 'Hogar', 'Deportes']
+
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const filtreCategory = (value) => {
+    products.filter(items => 
+      {if(items.category === value){
+        setFilteredProducts(items)
+        console.log(filteredProducts)
+      }
+    }
+  )
+}
+
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -42,19 +58,21 @@ export const FilterProducts = () => {
         <div className="flex flex-col space-y-2">
           <label className="text-lg font-medium text-gray-700">Filtrar por categoría</label>
           <select
-            className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+            className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" 
+            onChange={filtreCategory}
           >
             <option value="">Seleccionar categoría</option>
-            <option value="electronics">Electrónica</option>
-            <option value="fashion">Moda</option>
-            <option value="home">Hogar</option>
-            <option value="sports">Deportes</option>
+            {
+              listCategories.map((category, i) => (
+                <option key={i} value={category}>{category}</option>
+              ))
+            }
           </select>
         </div>
 
         {/* Botón de aplicar filtro */}
         <div className="flex justify-center">
-          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
+          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300" type='submit'>
             Aplicar Filtros
           </button>
         </div>
