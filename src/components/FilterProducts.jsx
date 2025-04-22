@@ -7,8 +7,12 @@ export const FilterProducts = () => {
   const [minPrice, setMinPrice] = useState('')
   const [maxPrice, setMaxPrice] = useState('')
 
+  const normalizeText = (text) => {
+    return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+  }
+
   const filteredProducts = products.filter(product => 
-    product.nameProduct.toLowerCase().includes(searchTerm.toLowerCase())
+    normalizeText(product.nameProduct).includes(normalizeText(searchTerm))
   )
 
   return (
