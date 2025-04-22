@@ -6,10 +6,9 @@ import { useState } from 'react'
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
   
-  const FilterProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase()) 
-);
-
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(Name.toLowerCase())
+  );
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -28,6 +27,12 @@ export const FilterProducts = () => {
             onChange={(e) => SetName(e.target.value)}
           />
         </div>
+
+        <ul>
+          {filteredProducts.map((product) => (
+            <li key={product.id}>{product.name}</li>
+          ))}
+        </ul>
 
         {/* Filtro por precio */}
         <div className="flex flex-col space-y-2">
