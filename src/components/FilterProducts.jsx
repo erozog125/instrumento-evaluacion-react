@@ -1,19 +1,20 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Product } from './Product'
 import { products } from '../assets/products.js'
-import useState from 'react';
+
 
 export const FilterProducts = () => {
 
   const listCategories = ['Electrónica', 'Moda', 'Hogar', 'Deportes']
 
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState('');
+  console.log(filteredProducts)
 
   const filtreCategory = (value) => {
+    console.log(value.target.value);
     products.filter(items => 
-      {if(items.category === value){
+      {if(items.category === value.target.value){
         setFilteredProducts(items)
-        console.log(filteredProducts)
       }
     }
   )
