@@ -13,7 +13,7 @@ export const FilterProducts = () => {
       <div className="bg-white shadow-md rounded-lg w-full max-w-4xl p-6 space-y-6">
 
         {/* Título */}
-        <h2 className="text-3xl font-semibold text-center text-gray-800">Buscar Productos</h2>
+        <h2 className="text-3xl font-semibold text-center text-gray-800 ">Buscar Productos</h2>
 
         {/* Barra de búsqueda */}
         <div className="flex flex-col space-y-2">
@@ -67,7 +67,9 @@ export const FilterProducts = () => {
         onClick ={() => {
             const filtered = products.filter((product) => {
               const price = product.price
-              return (PriceMin ? price >= PriceMin : true) && (PriceMax ? price <= PriceMax : true)
+              return (PriceMin ? price >= PriceMin : true) 
+              &&
+                     (PriceMax ? price <= PriceMax : true)
             })
 
             setFilteredProducts(filtered)
