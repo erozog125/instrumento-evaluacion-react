@@ -1,14 +1,20 @@
-import React from 'react'
-import { Product } from './Product'
-import { products } from '../assets/products.js'
-import { useState } from 'react'
+import React, { useState } from 'react';
+import { Product } from './Product';
+import { products } from '../assets/products.js';
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
-  
-  const FilterProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase()) 
-);
+  const [Category, SetCategory] = useState("");
+
+  // Filtrar productos válidos
+  const validProducts = products.filter((product) => product.nameProduct && product.category);
+
+  // Aplicar filtros
+  const FilteredProducts = validProducts.filter((product) => {
+    const matchesName = product.nameProduct.toLowerCase().includes(Name.toLowerCase());
+    const matchesCategory = Category ? product.category === Category : true;
+    return matchesName && matchesCategory;
+  });
 
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
@@ -29,53 +35,35 @@ export const FilterProducts = () => {
           />
         </div>
 
-        {/* Filtro por precio */}
-        <div className="flex flex-col space-y-2">
-          <label className="text-lg font-medium text-gray-700">Filtrar por precio</label>
-          <div className="flex space-x-4">
-            <input
-              type="number"
-              placeholder="Min"
-              className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            />
-            <input
-              type="number"
-              placeholder="Max"
-              className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            />
-          </div>
-        </div>
-
         {/* Filtro por categoría */}
         <div className="flex flex-col space-y-2">
           <label className="text-lg font-medium text-gray-700">Filtrar por categoría</label>
           <select
             className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+            value={Category}
+            onChange={(e) => SetCategory(e.target.value)}
           >
             <option value="">Seleccionar categoría</option>
-            <option value="electronics">Electrónica</option>
-            <option value="fashion">Moda</option>
-            <option value="home">Hogar</option>
-            <option value="sports">Deportes</option>
+            <option value="Deportes">Deportes</option>
+            <option value="Moda">Moda</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Electrónica">Electrónica</option>
           </select>
         </div>
 
-        {/* Botón de aplicar filtro */}
-        <div className="flex justify-center">
-          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
-            Aplicar Filtros
-          </button>
+        {/* Lista de productos filtrados */}
+        <div>
+          {FilteredProducts.length > 0 ? (
+            FilteredProducts.map((product) => (
+              <Product key={product.sku} {...product} />
+            ))
+          ) : (
+            <p className="text-gray-500">No se encontraron productos.</p>
+          )}
         </div>
       </div>
-      <div>
-        {
-          products.map((product) => (
-            <Product key={product.sku} {...product} />
-          ))
-        }
-      </div>
     </div>
-  )
-}
+  );
+};
 
 
