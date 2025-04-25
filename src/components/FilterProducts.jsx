@@ -3,12 +3,17 @@ import { Product } from './Product'
 import { products } from '../assets/products.js'
 import { useState } from 'react'
 
+
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
   
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase())
-  );
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const filteredProducts = products.filter((product) =>{
+    const FoundName = product.nameProduct.toLowerCase().includes(Name.toLowerCase());
+    const FoundCategory = selectedCategory ===""|| product.category === selectedCategory;
+    return FoundName && FoundCategory;
+  });
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
