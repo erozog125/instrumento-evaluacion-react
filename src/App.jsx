@@ -1,5 +1,4 @@
 import "./App.jsx";
-import { FilterProducts } from "./components/FilterProducts";
 
 function App() {
   
@@ -7,7 +6,6 @@ function App() {
     <>
      <></>
      <h1>Hola</h1>
-      <FilterProducts/>
     </>
   );
 }
