@@ -28,5 +28,5 @@ export const Product = (currentProduct) => {
         Descripción: <span className="font-normal">{description}</span>
       </p>
     </div>
-  );
-};
+  )
+}
