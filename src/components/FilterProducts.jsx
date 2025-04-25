@@ -7,16 +7,16 @@ export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
   const [minPrice, SetMinPrice] = useState('');
   const [maxPrice, SetMaxPrice] = useState('');
-  const [filterProducts, SetFilterProducts] = useState(products);
+  const [filteredProducts, setFilteredProducts] = useState(products);
 
   const handleFilter = () => {
-  const filteredProducts = products.filter((product) =>{
-    product.name?.toLowerCase().includes(Name.toLowerCase())
+  const filtered = products.filter((product) =>{
+    const sectName = product.name?.toLowerCase().includes(Name.toLowerCase())
     const sectMinPrice = minPrice == '' || product.price >= parseFloat(minPrice);
     const sectMaxPrice = maxPrice == '' || product.price <= parseFloat(maxPrice)
     return sectName && sectMinPrice && sectMaxPrice
 });
-SetFilterProducts(filter)
+setFilteredProducts(filtered)
   }
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
@@ -38,8 +38,10 @@ SetFilterProducts(filter)
         </div>
 
         <ul>
-          {filteredProducts.map((product) => (
-            <li key={product.id}>{product.name}</li>
+          {filteredProducts.map((product, index) => (
+            <li key={product.id || product.sku || index}>
+              {product.name}
+            </li>
           ))}
         </ul>
 
@@ -78,7 +80,8 @@ SetFilterProducts(filter)
 
         {/* Botón de aplicar filtro */}
         <div className="flex justify-center">
-          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
+          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+          onClick={handleFilter}>
             Aplicar Filtros
           </button>
         </div>
