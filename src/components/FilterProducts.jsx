@@ -5,9 +5,14 @@ import { useState } from 'react'
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const CategoryFilter = products.filter((product) =>
+    selectedCategory === "" || product.category.toLowerCase() === selectedCategory.toLowerCase()
+  );
   
   const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase())
+    product.name?.toLowerCase().includes(Name.toLowerCase())
   );
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
@@ -56,7 +61,8 @@ export const FilterProducts = () => {
           <label className="text-lg font-medium text-gray-700">Filtrar por categoría</label>
           <select
             className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-          >
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >  
             <option value="">Seleccionar categoría</option>
             <option value="electronics">Electrónica</option>
             <option value="fashion">Moda</option>
@@ -74,9 +80,10 @@ export const FilterProducts = () => {
       </div>
       <div>
         {
-          products.map((product) => (
-            <Product key={product.sku} {...product} />
-          ))
+
+        CategoryFilter.map((product) => (
+          <Product key={product.sku} {...product} />
+        ))
         }
       </div>
     </div>
