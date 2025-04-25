@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Product } from './Product';
-import { products } from '../assets/products.js';
+import React from 'react'
+import { Product } from './Product'
+import { products } from '../assets/products.js'
+import { useState } from 'react'
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState('');
