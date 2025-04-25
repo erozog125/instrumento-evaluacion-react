@@ -5,10 +5,11 @@ import { useState } from 'react'
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState([""]);
 
   const CategoryFilter = products.filter((product) =>
-    selectedCategory === "" || product.category.toLowerCase() === selectedCategory.toLowerCase()
+    selectedCategory === "" || product.category === selectedCategory
+
   );
   
   const filteredProducts = products.filter((product) =>
