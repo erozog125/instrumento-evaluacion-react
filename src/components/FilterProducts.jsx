@@ -1,20 +1,21 @@
-import React from 'react'
-import { Product } from './Product'
-import { products } from '../assets/products.js'
-import { useState } from 'react'
+import React, { useState } from 'react';
+import { Product } from './Product';
+import { products } from '../assets/products.js';
 
 export const FilterProducts = () => {
-  const [Name, SetName] = useState(""); 
-  
+  const [Name, SetName] = useState('');
+
+  // Filtro solo por nombre
   const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase())
+    product.nameProduct.toLowerCase().includes(Name.toLowerCase())
   );
+
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
-      {/* Contenedor principal */}
+	  {/* Contenedor principal */}
       <div className="bg-white shadow-md rounded-lg w-full max-w-4xl p-6 space-y-6">
 
-        {/* Título */}
+	  {/* Título */}
         <h2 className="text-3xl font-semibold text-center text-gray-800">Buscar Productos</h2>
 
         {/* Barra de búsqueda */}
@@ -34,7 +35,7 @@ export const FilterProducts = () => {
           ))}
         </ul>
 
-        {/* Filtro por precio */}
+        {/* Filtro por precio*/}
         <div className="flex flex-col space-y-2">
           <label className="text-lg font-medium text-gray-700">Filtrar por precio</label>
           <div className="flex space-x-4">
@@ -65,22 +66,24 @@ export const FilterProducts = () => {
           </select>
         </div>
 
-        {/* Botón de aplicar filtro */}
+        {/* Botón de aplicar filtros */}
         <div className="flex justify-center">
           <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
             Aplicar Filtros
           </button>
         </div>
       </div>
+
+      {/* productos filtrados solo por nombre */}
       <div>
-        {
-          products.map((product) => (
-            <Product key={product.sku} {...product} />
-          ))
-        }
+        {filteredProducts.map((product) => (
+          <Product key={product.sku} {...product} />
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
+
+export default FilterProducts;
 
 
