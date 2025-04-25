@@ -6,6 +6,7 @@ export const FilterProducts = () => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [filteredProducts, setFilteredProducts] = useState(products);
+  const [isFiltered, setIsFiltered] = useState(false); 
   
   const handleFilter = () => {
     const filtered = products.filter((product) => {
@@ -15,6 +16,7 @@ export const FilterProducts = () => {
       return price >= min && price <= max;
     });
     setFilteredProducts(filtered);
+    setIsFiltered(true);
   };
   
 
@@ -37,12 +39,14 @@ export const FilterProducts = () => {
         </div>
 
         <ul>
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <Product key={product.sku} {...product} />
-          ))
-        ) : (
-          <p className="text-gray-700">No se encontraron productos.</p>
+        {isFiltered && ( // Solo muestra los productos si se ha aplicado el filtro
+          filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
+              <Product key={product.sku} {...product} />
+            ))
+          ) : (
+            <p className="text-gray-700">No se encontraron productos.</p>
+          )
         )}
         </ul>
 
