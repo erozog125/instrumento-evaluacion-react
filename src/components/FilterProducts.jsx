@@ -4,11 +4,16 @@ import { products } from '../assets/products.js'
 import { useState } from 'react'
 
 export const FilterProducts = () => {
-  const [Name, SetName] = useState(""); 
+  const [Name, SetName] = useState('')
+  const [MinPrice, SetMinPrice] = useState(0)
+  const [MaxPrice, SetMaxPrice] = useState(0)
   
   const filteredProducts = products.filter((product) =>
-    product.nameProduct.toLowerCase().includes(Name.toLowerCase())
-  );
+    product.nameProduct.toLowerCase().includes(Name.toLowerCase()) &&
+    (MinPrice === '' || product.price >= parseFloat(MinPrice)) &&
+    (MaxPrice === '' || product.price <= parseFloat(MaxPrice))
+  )
+  
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -84,5 +89,3 @@ export const FilterProducts = () => {
     </div>
   )
 }
-
-
