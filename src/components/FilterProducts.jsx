@@ -8,8 +8,13 @@ export const FilterProducts = () => {
   const [minPrice, SetMinPrice] = useState('');
   const [maxPrice, SetMaxPrice] = useState('');
   
-  const filteredProducts = products.filter((product) =>
-    product.name?.toLowerCase().includes(Name.toLowerCase())
+  const filteredProducts = products.filter((product) =>{
+    const sectName =product.name?.toLowerCase().includes(Name.toLowerCase())
+    const sectMinPrice = minPrice == '' || product.price >= parseFloat(minPrice);
+    const sectMaxPrice = maxPrice == '' || product.price <= parseFloat(maxPrice)
+    return sectName && sectMinPrice && sectMaxPrice
+}
+
   );
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
