@@ -9,7 +9,8 @@ export const FilterProducts = () => {
   const [filteredProducts, setFilteredProducts] = useState(products); // Estado para los productos filtrados
 
   const applyFilters = () => {
-    const filtered = products.filter((product) => {
+    const filtered = products .filter((product) => product && product.name) // Validar que el producto no sea undefined y tenga la propiedad name
+    .filter((product) => {
       const matchesName = product.name.toLowerCase().includes(Name.toLowerCase());
       const matchesCategory = Category ? product.category === Category : true;
       return matchesName && matchesCategory;
