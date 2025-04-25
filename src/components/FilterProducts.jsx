@@ -7,10 +7,10 @@ export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
   const [category, setCategory] = useState("")
   
-  // Filtro combinado por nombre y categoría
+ //Se creo esta función para filtar los productos por la categoria
   const filteredProducts = products.filter((product) => {
-    const categoryMatch = category === "" || product.category.toLowerCase() === category.toLowerCase();
-    return categoryMatch;
+    const categorySelect = category === "" || product.category.toLowerCase() === category.toLowerCase();
+    return categorySelect;
   });
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
@@ -79,15 +79,24 @@ export const FilterProducts = () => {
           </button>
         </div>
       </div>
-      <div>
+      {/*<div>
         {
           products.map((product) => (
             <Product key={product.sku} {...product} />
           ))
         }
+      </div>*/}
+
+      <div>
+      {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <Product key={product.category} {...product} />
+          ))
+        ) : (
+          <p className="text-gray-500 text-lg">No se encontraron productos.</p>
+        )}
+
       </div>
     </div>
   )
 }
-
-
