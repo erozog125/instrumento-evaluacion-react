@@ -10,8 +10,10 @@ export const FilterProducts = () => {
     product.nameProduct.toLowerCase().includes(Name.toLowerCase())
   );
 
+  {/* Estado para almacenar los productos filtrados */}
   const [appliedFilters, setAppliedFilters] = useState(products);
   
+  {/* Función para aplicar los filtros */}
   const handleApplyFilters = () => {
     setAppliedFilters(filteredProducts);
   };
@@ -82,6 +84,7 @@ export const FilterProducts = () => {
           </button>
         </div>
       </div>
+      {/* Productos filtrados */}
       <div>
         {
           appliedFilters.map((product) => (
