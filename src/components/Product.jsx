@@ -2,7 +2,7 @@ import React from "react";
 
 export const Product = (currentProduct) => {
   const { sku, nameProduct, category, price, description } = currentProduct;
-
+  
   return (
     <div className="mt-2 max-w-sm mx-auto border border-solid rounded-lg p-4 bg-gray-50 shadow-lg text-blue-700">
       {/* Título del producto */}
