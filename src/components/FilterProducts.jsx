@@ -9,6 +9,7 @@ export const FilterProducts = () => {
   const filteredProducts = products.filter((product) =>
     product.nameProduct.toLowerCase().includes(Name.toLowerCase())
   );
+
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -68,13 +69,13 @@ export const FilterProducts = () => {
         {/* Botón de aplicar filtro */}
         <div className="flex justify-center">
           <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
-            Aplicar Filtros
+            Aplicar Filtros 
           </button>
         </div>
       </div>
       <div>
         {
-          products.map((product) => (
+          filteredProducts.map((product) => (
             <Product key={product.sku} {...product} />
           ))
         }
