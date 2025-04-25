@@ -7,15 +7,17 @@ export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
   const [minPrice, SetMinPrice] = useState('');
   const [maxPrice, SetMaxPrice] = useState('');
-  
+  const [filterProducts, SetFilterProducts] = useState(products);
+
+  const handleFilter = () => {
   const filteredProducts = products.filter((product) =>{
-    const sectName =product.name?.toLowerCase().includes(Name.toLowerCase())
+    product.name?.toLowerCase().includes(Name.toLowerCase())
     const sectMinPrice = minPrice == '' || product.price >= parseFloat(minPrice);
     const sectMaxPrice = maxPrice == '' || product.price <= parseFloat(maxPrice)
     return sectName && sectMinPrice && sectMaxPrice
-}
-
-  );
+});
+SetFilterProducts(filter)
+  }
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -49,11 +51,13 @@ export const FilterProducts = () => {
               type="number"
               placeholder="Min"
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+              onChange={(e) => SetMinPrice(e.target.value)}
             />
             <input
               type="number"
               placeholder="Max"
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+              onChange={(e) => SetMaxPrice(e.target.value)}
             />
           </div>
         </div>
