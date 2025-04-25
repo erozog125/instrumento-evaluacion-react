@@ -5,10 +5,15 @@ import { useState } from 'react'
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
+  const [filteredProducts, setFilteredProducts] = useState([])
+
+  const handleFilter = () => {
+    const filtered = products.filter((product) =>
+      product.nameProduct.toLowerCase().includes(Name.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  };
   
-  const filteredProducts = products.filter((product) =>
-    product.nameProduct.toLowerCase().includes(Name.toLowerCase())
-  );
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -67,7 +72,7 @@ export const FilterProducts = () => {
 
         {/* Botón de aplicar filtro */}
         <div className="flex justify-center">
-          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
+          <button onClick={handleFilter} className="px-6 py-2 bg-blue-500 text-black rounded-lg hover:bg-blue-600 transition duration-300">
             Aplicar Filtros
           </button>
         </div>
