@@ -1,5 +1,7 @@
 import "./App.css";
 import { FilterProducts } from "./components/FilterProducts";
+import { products } from "./assets/products";
+import { useState } from "react";
 
 function App() {
   const[min, setMinPrice] = useState(0);
@@ -18,7 +20,7 @@ function App() {
   const handleReset = () => {
     setFilteredProducts(products);
     setMinPrice(0);
-    setMaxPrice(2000);
+    setMaxPrice(3000);
   };
   
   return (
@@ -41,7 +43,7 @@ function App() {
          <button onClick={handlePriceFilter}>Filtrar</button>
         <button onClick={handleReset}>Resetear filtros</button>
       </div>
-      
+
       <FilterProducts products={filteredProducts} />
     </div>
   );
