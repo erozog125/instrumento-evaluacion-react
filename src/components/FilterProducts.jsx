@@ -18,8 +18,7 @@ export const FilterProducts = () => {
         <h2 className="text-3xl font-semibold text-center text-gray-800">Buscar Productos</h2>
 
         {/* Barra de búsqueda */}
-
-         <div className="flex flex-col space-y-2 relative">
+        <div className="flex flex-col space-y-2 relative">
           <label className="text-lg font-medium text-gray-700">Buscar por nombre</label>
           <input
             type="text"
