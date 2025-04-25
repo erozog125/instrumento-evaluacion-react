@@ -1,5 +1,5 @@
 import React from 'react'
-import { Product } from './Product'
+import { Product } from '../components/Product'
 import { products } from '../assets/products.js'
 import { useState } from 'react'
 
@@ -7,7 +7,7 @@ export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
   
   const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase())
+    product.nameProduct.toLowerCase().includes(Name.toLowerCase())
   );
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
@@ -30,7 +30,7 @@ export const FilterProducts = () => {
 
         <ul>
           {filteredProducts.map((product) => (
-            <li key={product.id}>{product.name}</li>
+            <li key={product.sku}>{product.nameProduct}</li>
           ))}
         </ul>
 
