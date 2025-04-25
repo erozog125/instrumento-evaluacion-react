@@ -5,12 +5,16 @@ import { useState } from 'react'
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
-  const [minPrice, etMinPrice] = useState("");
+  const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   
-  const filteredProducts = products.filter((product) =>
-    product.name && product.name.toLowerCase().includes(Name.toLowerCase())
-  );
+   const filteredProducts = products.filter((product) => {
+    const matchesName = product.name && product.name.toLowerCase().includes(Name.toLowerCase());
+    const matchesPrice =
+      (!minPrice || product.price >= parseFloat(minPrice)) &&
+      (!maxPrice || product.price <= parseFloat(maxPrice));
+    return matchesName && matchesPrice;
+  });
   
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
@@ -44,11 +48,15 @@ export const FilterProducts = () => {
             <input
               type="number"
               placeholder="Min"
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
             <input
               type="number"
               placeholder="Max"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
           </div>
