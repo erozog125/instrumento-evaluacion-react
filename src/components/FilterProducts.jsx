@@ -1,20 +1,18 @@
 import React from 'react'
 import { Product } from './Product'
 import { products } from '../assets/products.js'
-import { useState } from 'react'
-import { useContext } from 'react'
-import { Context } from './Context.jsx'
+import { useState, useContext } from 'react'
+import { context } from './Context.jsx'
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
-  const {PriceMin, setPriceMin} = useContext(Context);
-  const {PriceMax, setPriceMax} = useContext(Context);
+  const {PriceMin, setPriceMin} = useContext(context);
+  const {PriceMax, setPriceMax} = useContext(context);
 
-  const filteredProductsByPrice = PriceMin && PriceMax ? products.filter((product) =>
-    product.price >= PriceMin && product.price <= PriceMax
-  ) : products.filter((product) =>
-    product.price >= 0 && product.price <= 10000000
-  );
+  const filteredProductsByPrice = PriceMin && PriceMax ? products.filter((product) => { 
+    return product.price >= PriceMin && product.price <= PriceMax;
+  }) : products;
+
   
   const filteredProducts = products.filter((product) =>
     product.name?.toLowerCase().includes(Name.toLowerCase())
@@ -48,13 +46,17 @@ export const FilterProducts = () => {
         <div className="flex flex-col space-y-2">
           <label className="text-lg font-medium text-gray-700">Filtrar por precio</label>
           <div className="flex space-x-4">
-            <input
+            <input 
               type="number"
+              value={PriceMin}
+              onChange={(e) => setPriceMin(e.target.value)}
               placeholder="Min"
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
-            <input
+            <input {...setPriceMax}
               type="number"
+              value={PriceMax}
+              onChange={(e) => setPriceMax(e.target.value)}
               placeholder="Max"
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
@@ -77,15 +79,21 @@ export const FilterProducts = () => {
 
         {/* Botón de aplicar filtro */}
         <div className="flex justify-center">
-          <button onClick={()=> filteredProductsByPrice} className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
-            Aplicar Filtros
+        <button onClick={() => console.log(filteredProductsByPrice)} className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">            Aplicar Filtros
           </button>
         </div>
       </div>
       <div>
         {
-          products.map((product) => (
-            <Product key={product.sku} {...product} />
+          filteredProductsByPrice.map((product) => (
+            <Product
+              key={product.id}
+              sku={product.sku}
+              nameProduct={product.name}
+              category={product.category}
+              price={product.price}
+              description={product.description}
+            />
           ))
         }
       </div>
