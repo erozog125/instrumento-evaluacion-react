@@ -7,8 +7,9 @@ export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
   
   const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase())
+    product.nameProduct.toLowerCase().includes(Name.toLowerCase())
   );
+
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -28,59 +29,14 @@ export const FilterProducts = () => {
           />
         </div>
 
-        <ul>
+        {/* Lista de productos filtrados */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredProducts.map((product) => (
-            <li key={product.id}>{product.name}</li>
-          ))}
-        </ul>
-
-        {/* Filtro por precio */}
-        <div className="flex flex-col space-y-2">
-          <label className="text-lg font-medium text-gray-700">Filtrar por precio</label>
-          <div className="flex space-x-4">
-            <input
-              type="number"
-              placeholder="Min"
-              className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            />
-            <input
-              type="number"
-              placeholder="Max"
-              className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            />
-          </div>
-        </div>
-
-        {/* Filtro por categoría */}
-        <div className="flex flex-col space-y-2">
-          <label className="text-lg font-medium text-gray-700">Filtrar por categoría</label>
-          <select
-            className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-          >
-            <option value="">Seleccionar categoría</option>
-            <option value="electronics">Electrónica</option>
-            <option value="fashion">Moda</option>
-            <option value="home">Hogar</option>
-            <option value="sports">Deportes</option>
-          </select>
-        </div>
-
-        {/* Botón de aplicar filtro */}
-        <div className="flex justify-center">
-          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
-            Aplicar Filtros
-          </button>
-        </div>
-      </div>
-      <div>
-        {
-          products.map((product) => (
             <Product key={product.sku} {...product} />
-          ))
-        }
+          ))}
+        </div>
       </div>
     </div>
   )
-}
 
 
