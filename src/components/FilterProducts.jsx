@@ -7,10 +7,13 @@ export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
   const [selectedCategory, setSelectedCategory] = useState(""); // estado nuevo
   
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase())
-  
-  );
+  const filteredProducts = products.filter((product) => {
+    const matchesName = product.name.toLowerCase().includes(Name.toLowerCase());
+    const matchesCategory = selectedCategory
+      ? product.categoria === selectedCategory // si un producto tiene una catgoria lo filtra
+      : true; // muestra todas las categorias si no filtra una categoria
+    return matchesName && matchesCategory;
+  });
 
 
   return (
