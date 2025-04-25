@@ -7,22 +7,15 @@ export const FilterProducts = () => {
 
   const [MinPrice, SetMinPrice] = useState();
   const [MaxPrice, SetMaxPrice] = useState();
+  const [displayedProducts, setDisplayedProducts] = useState(products);
   
   const handleApplyFilters = () => {
-    products.filter((product) =>
-      (MinPrice ? product.price >= MinPrice : true) &&
-      (MaxPrice ? product.price <= MaxPrice : true)
-    );
-  }
-    
-  
-  const filteredProducts = products.filter((product) => {
+    const filteredProducts = products.filter((product) => {
       const min = MinPrice === '' ? true : product.price >= parseFloat(MinPrice);
       const max = MaxPrice === '' ? true : product.price <= parseFloat(MaxPrice);
       return min && max
-});
-
-
+})};
+  
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -86,10 +79,17 @@ export const FilterProducts = () => {
 
         {/* Botón de aplicar filtro */}
         <div className="flex justify-center">
-          <button onClick={filteredProducts} className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
+          <button onClick={handleApplyFilters} className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
             Aplicar Filtros
           </button>
         </div>
+      </div>
+      <div>
+        {
+          displayedProducts.map((product) => (
+            <Product key={product.sku} {...product} />
+          ))
+        }
       </div>
       <div>
         {
