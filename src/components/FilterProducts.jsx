@@ -37,9 +37,13 @@ export const FilterProducts = () => {
         </div>
 
         <ul>
-          {filteredProducts.map((product) => (
-            <li key={product.id}>{product.name}</li>
-          ))}
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <Product key={product.sku} {...product} />
+          ))
+        ) : (
+          <p className="text-gray-700">No se encontraron productos.</p>
+        )}
         </ul>
 
         {/* Filtro por precio */}
@@ -86,16 +90,12 @@ export const FilterProducts = () => {
       </div>
       <div>
  
-
-      {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
+      {
+          products.map((product) => (
             <Product key={product.sku} {...product} />
           ))
-        ) : (
-          <p className="text-gray-700">No se encontraron productos.</p>
-        )}
+        }
 
-      
       </div>
     </div>
   )
