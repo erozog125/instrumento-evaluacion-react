@@ -9,20 +9,30 @@ export const FilterProducts = () => {
     maxPrice: "",
     category: ""
   });
-  
-  const filteredProducts = products.filter((product) => {
-    // Filter by name
-    const nameMatch = product.name.toLowerCase().includes(filters.name.toLowerCase());
-    
-    // Filter by price range
-    const priceMatch = (
-      (!filters.minPrice || product.price >= Number(filters.minPrice)) &&
-      (!filters.maxPrice || product.price <= Number(filters.maxPrice))
+
+  const filterByPriceRange = (product, minPrice, maxPrice) => {
+    const min = Number(minPrice);
+    const max = Number(maxPrice);
+
+    // Validar rango de precios
+    if (min && max && min > max) return false;
+
+    return (
+      (!minPrice || product.price >= min) &&
+      (!maxPrice || product.price <= max)
     );
-    
-    // Filter by category
+  };
+
+  const filteredProducts = products.filter((product) => {
+    // Filtrar por nombre
+    const nameMatch = product.name.toLowerCase().includes(filters.name.toLowerCase());
+
+    // Filtrar por rango de precios
+    const priceMatch = filterByPriceRange(product, filters.minPrice, filters.maxPrice);
+
+    // Filtrar por categoría
     const categoryMatch = !filters.category || product.category === filters.category;
-    
+
     return nameMatch && priceMatch && categoryMatch;
   });
 
