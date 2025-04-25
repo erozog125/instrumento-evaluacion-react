@@ -4,10 +4,13 @@ import { products } from '../assets/products.js'
 import { useState } from 'react'
 
 export const FilterProducts = () => {
+
+  const listCategories = ['Electronica', 'Moda', 'Hogar','Deportes']
+
   const [Name, SetName] = useState(""); 
   
   const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase())
+    product.nameProduct.toLowerCase().includes(Name.toLowerCase())
   );
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
@@ -63,6 +66,10 @@ export const FilterProducts = () => {
             <option value="home">Hogar</option>
             <option value="sports">Deportes</option>
           </select>
+
+          {/* {
+            products.map
+          } */}
         </div>
 
         {/* Botón de aplicar filtro */}
