@@ -1,25 +1,28 @@
-import React from 'react'
-import { Product } from './Product'
-import { products } from '../assets/products.js'
-import { useState } from 'react'
+import React, { useState } from 'react';
+import { Product } from './Product';
+import { products } from '../assets/products.js';
 
 export const FilterProducts = () => {
-  const [Name, SetName] = useState(""); 
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [filteredProducts, setFilteredProducts] = useState(products);
   
   const handleFilter = () => {
     const filtered = products.filter((product) => {
-      const matchesName = product.name && product.name.toLowerCase().includes(Name.toLowerCase());
-      const matchesPrice =
-        (!minPrice || product.price >= parseFloat(minPrice)) &&
-        (!maxPrice || product.price <= parseFloat(maxPrice));
-      return matchesName && matchesPrice;
+      const price = parseFloat(product.price);
+      const min = minPrice ? parseFloat(minPrice) : -Infinity;
+      const max = maxPrice ? parseFloat(maxPrice) : Infinity;
+      return price >= min && price <= max;
     });
-    setFilteredProducts(filtered); 
+    setFilteredProducts(filtered);
   };
   
+  // Función para resetear filtros
+  const handleReset = () => {
+    setMinPrice("");
+    setMaxPrice("");
+    setFilteredProducts(products);
+  };
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -82,17 +85,21 @@ export const FilterProducts = () => {
 
         {/* Botón de aplicar filtro */}
         <div className="flex justify-center">
-          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
+          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300" onClick={handleFilter}>
             Aplicar Filtros
           </button>
         </div>
       </div>
       <div>
-        {
-          products.map((product) => (
+ 
+
+      {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
             <Product key={product.sku} {...product} />
           ))
-        }
+        ) : (
+          <p className="text-gray-700">No se encontraron productos.</p>
+        )}
 
       
       </div>
