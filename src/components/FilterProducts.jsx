@@ -4,8 +4,8 @@ import { products } from '../assets/products.js'
 import { useState } from 'react'
 
 export const FilterProducts = () => {
-  const [Name, SetName] = useState(""); 
-  const [filteredProducts, setFilteredProducts] = useState([])
+  const [Name, SetName] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState(products)
 
   const handleFilter = () => {
     const filtered = products.filter((product) =>
@@ -13,7 +13,7 @@ export const FilterProducts = () => {
     );
     setFilteredProducts(filtered);
   };
-  
+
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -32,12 +32,6 @@ export const FilterProducts = () => {
             onChange={(e) => SetName(e.target.value)}
           />
         </div>
-
-        <ul>
-          {filteredProducts.map((product) => (
-            <li key={product.sku}>{product.nameProduct}</li>
-          ))}
-        </ul>
 
         {/* Filtro por precio */}
         <div className="flex flex-col space-y-2">
@@ -79,7 +73,7 @@ export const FilterProducts = () => {
       </div>
       <div>
         {
-          products.map((product) => (
+          filteredProducts.map((product) => (
             <Product key={product.sku} {...product} />
           ))
         }
