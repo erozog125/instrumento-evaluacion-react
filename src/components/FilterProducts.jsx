@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
-  const [selectedCategory, setSelectedCategory] = useState(""); // Nuevo estado
+  const [selectedCategory, setSelectedCategory] = useState(""); // estado nuevo
   
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(Name.toLowerCase())
