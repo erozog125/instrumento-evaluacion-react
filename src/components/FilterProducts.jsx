@@ -6,17 +6,15 @@ import { useState } from 'react'
 export const FilterProducts = () => {
   const [Name, SetName] = useState('');
 
-  // Filtro solo por nombre
   const filteredProducts = products.filter((product) =>
     product.nameProduct.toLowerCase().includes(Name.toLowerCase())
   );
-
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
-	  {/* Contenedor principal */}
+	    {/* Contenedor principal */}
       <div className="bg-white shadow-md rounded-lg w-full max-w-4xl p-6 space-y-6">
 
-	  {/* Título */}
+	      {/* Título */}
         <h2 className="text-3xl font-semibold text-center text-gray-800">Buscar Productos</h2>
 
         {/* Barra de búsqueda */}
