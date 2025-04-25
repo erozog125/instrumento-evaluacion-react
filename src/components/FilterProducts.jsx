@@ -7,8 +7,9 @@ export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
   
   const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase())
+    product.name && product.name.toLowerCase().includes(Name.toLowerCase())
   );
+  
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
