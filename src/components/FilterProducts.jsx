@@ -1,118 +1,73 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Product } from './Product'
 import { products } from '../assets/products.js'
+import { useState } from 'react'
 
 export const FilterProducts = () => {
-  const [filters, setFilters] = useState({
-    name: "",
-    minPrice: "",
-    maxPrice: "",
-    category: ""
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+
+  const filteredProducts = products.filter(product => {
+    const productPrice = product.price;
+    const min = minPrice === '' ? 0 : Number(minPrice);
+    const max = maxPrice === '' ? Infinity : Number(maxPrice);
+    
+    return productPrice >= min && productPrice <= max;
   });
 
-  const [appliedFilters, setAppliedFilters] = useState({
-    name: "",
-    minPrice: "",
-    maxPrice: "",
-    category: ""
-  });
-
-  const filteredProducts = products.filter((product) => {
-    // Filtro por nombre
-    const nameMatch = product.nameProduct.toLowerCase().includes(appliedFilters.name.toLowerCase());
-    
-    // Filtro por precio
-    const minPrice = appliedFilters.minPrice ? Number(appliedFilters.minPrice) : 0;
-    const maxPrice = appliedFilters.maxPrice ? Number(appliedFilters.maxPrice) : Infinity;
-    const priceMatch = product.price >= minPrice && product.price <= maxPrice;
-    
-    // Filtro por categoría
-    const categoryMatch = !appliedFilters.category || product.category === appliedFilters.category;
-    
-    return nameMatch && priceMatch && categoryMatch;
-  });
-
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilters(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleApplyFilters = () => {
-    // Validar que el precio mínimo no sea mayor que el máximo
-    if (filters.minPrice && filters.maxPrice && 
-        Number(filters.minPrice) > Number(filters.maxPrice)) {
-      alert("El precio mínimo no puede ser mayor que el precio máximo");
-      return;
+  const handlePriceChange = (e, setPriceFunction) => {
+    const value = e.target.value;
+    if (value === '' || (Number(value) >= 0)) {
+      setPriceFunction(value);
     }
-    
-    setAppliedFilters(filters);
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
-        Buscar
-      </h1>
-      <h2 className="text-xl font-bold text-center text-gray-800 mb-6">
-        Productos
-      </h2>
+    <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
+      <div className="bg-white shadow-md rounded-lg w-full max-w-4xl p-6 space-y-6">
+        {/* Título */}
+        <h2 className="text-3xl font-semibold text-center text-blue-900">Buscar Productos</h2>
 
-      <div className="space-y-6">
-        {/* Búsqueda por nombre */}
-        <div>
-          <label className="block text-sm font-medium text-red-700 mb-2 text-center">
-            Buscar por nombre
-          </label>
+        {/* Campo de búsqueda (deshabilitado) */}
+        <div className="space-y-2">
+          <h3 className="text-lg text-gray-700">Buscar por nombre</h3>
           <input
             type="text"
-            name="name"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-100 cursor-not-allowed"
             placeholder="Escribe el nombre del producto..."
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            value={filters.name}
-            onChange={handleFilterChange}
+            disabled
           />
         </div>
 
-        {/* Filtro por precio */}
-        <div>
-          <label className="block text-sm font-medium text-red-700 mb-2 text-center">
-            Filtrar por precio
-          </label>
-          <div className="grid grid-cols-2 gap-4">
+        {/* Filtro por precio (funcional) */}
+        <div className="space-y-2">
+          <h3 className="text-lg text-gray-700">Filtrar por precio</h3>
+          <div className="flex gap-4">
             <input
               type="number"
-              name="minPrice"
-              placeholder="Min"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              value={filters.minPrice}
-              onChange={handleFilterChange}
+              placeholder="Precio mínimo"
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+              value={minPrice}
+              onChange={(e) => handlePriceChange(e, setMinPrice)}
               min="0"
             />
             <input
               type="number"
-              name="maxPrice"
-              placeholder="Max"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              value={filters.maxPrice}
-              onChange={handleFilterChange}
+              placeholder="Precio máximo"
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+              value={maxPrice}
+              onChange={(e) => handlePriceChange(e, setMaxPrice)}
               min="0"
             />
           </div>
         </div>
 
-        {/* Filtro por categoría */}
-        <div>
-          <label className="block text-sm font-medium text-red-700 mb-2 text-center">
-            Filtrar por categoría
-          </label>
+        {/* Filtro por categoría (deshabilitado) */}
+        <div className="space-y-2">
+          <h3 className="text-lg text-gray-700">Filtrar por categoría</h3>
           <select
-            name="category"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white"
-            value={filters.category}
-            onChange={handleFilterChange}
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-100 cursor-not-allowed"
+            disabled
           >
             <option value="">Seleccionar categoría</option>
             <option value="Deportes">Deportes</option>
@@ -122,25 +77,23 @@ export const FilterProducts = () => {
           </select>
         </div>
 
-        {/* Botón de aplicar filtros */}
-        <div className="text-center">
-          <button 
-            className="w-full px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
-            onClick={handleApplyFilters}
-          >
-            Aplicar Filtros
-          </button>
-        </div>
+        {/* Botón (deshabilitado) */}
+        <button 
+          className="w-full bg-gray-500 text-white py-2 px-4 rounded-lg cursor-not-allowed"
+          disabled
+        >
+          Aplicar Filtros
+        </button>
       </div>
-
+      
       {/* Lista de productos filtrados */}
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
         {filteredProducts.map((product) => (
           <Product key={product.sku} {...product} />
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 

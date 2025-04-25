@@ -3,6 +3,14 @@ import React from "react";
 export const Product = (currentProduct) => {
   const { sku, nameProduct, category, price, description } = currentProduct;
 
+  // Formatear el precio como número
+  const formattedPrice = new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(price);
+
   return (
     <div className="mt-2 max-w-sm mx-auto border border-solid rounded-lg p-4 bg-gray-50 shadow-lg text-blue-700">
       {/* Título del producto */}
@@ -20,7 +28,7 @@ export const Product = (currentProduct) => {
 
       {/* Precio */}
       <p className="text-sm font-medium mb-1">
-        Precio: <span className="font-normal">{price}</span>
+        Precio: <span className="font-normal">{formattedPrice}</span>
       </p>
 
       {/* Descripción */}
