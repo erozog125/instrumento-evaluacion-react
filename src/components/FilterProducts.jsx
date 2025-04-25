@@ -5,6 +5,8 @@ import { useState } from 'react'
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
+  const [minPrice, etMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   
   const filteredProducts = products.filter((product) =>
     product.name && product.name.toLowerCase().includes(Name.toLowerCase())
