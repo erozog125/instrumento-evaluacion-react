@@ -40,19 +40,23 @@ export const FilterProducts = () => {
           ))}
         </ul>
 
-        {/* Filtro por precio */}
-        <div className="flex flex-col space-y-2">
+         {/* Filtrar por precio */}
+         <div className="flex flex-col space-y-2">
           <label className="text-lg font-medium text-gray-700">Filtrar por precio</label>
           <div className="flex space-x-4">
             <input
               type="number"
               placeholder="Min"
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
             />
             <input
               type="number"
               placeholder="Max"
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
             />
           </div>
         </div>
