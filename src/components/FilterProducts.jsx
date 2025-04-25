@@ -5,22 +5,16 @@ import { useState } from 'react'
 
 export const FilterProducts = () => {
 
-  const listCategories = useState(['Electronica', 'Moda', 'Hogar','Deportes'])
-
-  const [Name, SetName] = useState(""); 
-
-  const [filteredProducts, setFilteredProducts] = useState([]);
- 
-  const filtreCategory = (value) => {
-     products.filter(items => 
-       {if(items.category === value){
-         setFilteredProducts(items)
-         console.log(filteredProducts)
-       }
-     }
-   )
- }
-
+  const [Category, SetCategory] = useState(""); 
+  
+  const filteredProducts = products.filter((product) =>
+    if (Category) {
+      filtered = filtered.filter(product => 
+        product.category === selectedCategory
+      );
+    }
+  
+  );
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -41,9 +35,9 @@ export const FilterProducts = () => {
         </div>
 
         <ul>
-          {filteredProducts.map((product) => (
+          {/* {filteredProducts.map((product) => (
             <li key={product.id}>{product.name}</li>
-          ))}
+          ))} */}
         </ul>
 
         {/* Filtro por precio */}
@@ -68,12 +62,13 @@ export const FilterProducts = () => {
           <label className="text-lg font-medium text-gray-700">Filtrar por categoría</label>
           <select
             className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+            onChange={(e) => SetCategory(e.target.value)}
           >
             <option value="">Seleccionar categoría</option>
             <option value="electronics">Electrónica</option>
-             <option value="fashion">Moda</option>
-             <option value="home">Hogar</option>
-             <option value="sports">Deportes</option>
+            <option value="fashion">Moda</option>
+            <option value="home">Hogar</option>
+            <option value="sports">Deportes</option>
           </select>
         </div>
 
