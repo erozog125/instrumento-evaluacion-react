@@ -5,9 +5,14 @@ import { useState } from 'react'
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
+
+   const [MinPrice, SetMinPrice] = useState();
+  const [MaxPrice, SetMaxPrice] = useState();
+  
   
   const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase())
+    (MinPrice ? product.price >= MinPrice : true) &&
+    (MaxPrice ? product.price <= MaxPrice : true)
   );
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
@@ -35,15 +40,20 @@ export const FilterProducts = () => {
         </ul>
 
         {/* Filtro por precio */}
+
         <div className="flex flex-col space-y-2">
           <label className="text-lg font-medium text-gray-700">Filtrar por precio</label>
           <div className="flex space-x-4">
-            <input
+            <input 
+            value={MinPrice}
+            onChange={(e) => SetMinPrice(e.target.value)}
               type="number"
               placeholder="Min"
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
             <input
+            value={MaxPrice}
+            onChange={(e) => SetMaxPrice(e.target.value)}
               type="number"
               placeholder="Max"
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
@@ -67,7 +77,7 @@ export const FilterProducts = () => {
 
         {/* Botón de aplicar filtro */}
         <div className="flex justify-center">
-          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
+          <button onClick={handleApplyFilters} className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
             Aplicar Filtros
           </button>
         </div>
