@@ -5,16 +5,16 @@ import { useState } from 'react'
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
-  const [selectedCategory, setSelectedCategory] = useState([""]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const CategoryFilter = products.filter((product) =>
-    selectedCategory === "" || product.category === selectedCategory
-
+    selectedCategory === "" || product.category.toLowerCase() === selectedCategory.toLowerCase()
   );
-  
+
   const filteredProducts = products.filter((product) =>
     product.name?.toLowerCase().includes(Name.toLowerCase())
   );
+
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -65,10 +65,10 @@ export const FilterProducts = () => {
             onChange={(e) => setSelectedCategory(e.target.value)}
           >  
             <option value="">Seleccionar categoría</option>
-            <option value="electronics">Electrónica</option>
-            <option value="fashion">Moda</option>
-            <option value="home">Hogar</option>
-            <option value="sports">Deportes</option>
+            <option value="Electrónica">Electrónica</option>
+            <option value="Moda">Moda</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Deportes">Deportes</option>
           </select>
         </div>
 
@@ -81,14 +81,11 @@ export const FilterProducts = () => {
       </div>
       <div>
         {
-
-        CategoryFilter.map((product) => (
-          <Product key={product.sku} {...product} />
-        ))
+          CategoryFilter.map((product) => (
+            <Product key={product.sku} {...product} />
+          ))
         }
       </div>
     </div>
   )
 }
-
-
