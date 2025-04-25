@@ -19,18 +19,7 @@ export const FilterProducts = () => {
 
         {/* Barra de búsqueda */}
 
-        {/* <div className="flex flex-col space-y-2">
-          <label className="text-lg font-medium text-gray-700">Buscar por nombre</label>
-          <input
-            type="text"
-            placeholder="Escribe el nombre del producto..."
-            className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            onChange={(e) => SetName(e.target.value)}
-          />
-        </div> */}
-        {/* Barra de búsqueda */}
-
-        <div className="flex flex-col space-y-2 relative">
+         <div className="flex flex-col space-y-2 relative">
           <label className="text-lg font-medium text-gray-700">Buscar por nombre</label>
           <input
             type="text"
