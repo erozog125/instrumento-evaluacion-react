@@ -1,23 +1,23 @@
 import React from 'react'
 import { Product } from './Product'
 import { products } from '../assets/products.js'
-import { useState } from 'react'
+import { useState } from 'react' 
 
 export const FilterProducts = () => {
 
-  const [MinPrice, SetMinPrice] = useState();
-  const [MaxPrice, SetMaxPrice] = useState();
+  const [MinPrice, SetMinPrice] = useState('');
+  const [MaxPrice, SetMaxPrice] = useState('');
   const [displayedProducts, setDisplayedProducts] = useState(products);
-  
+
   const handleApplyFilters = () => {
-    const filteredProducts = products.filter((product) => {
+    const filtered = products.filter((product) => {
       const min = MinPrice === '' ? true : product.price >= parseFloat(MinPrice);
       const max = MaxPrice === '' ? true : product.price <= parseFloat(MaxPrice);
-      return min && max
-});
-    setDisplayedProducts(filteredProducts);
+      return min && max;
+    });
+    setDisplayedProducts(filtered);
   }
-  
+
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -33,27 +33,24 @@ export const FilterProducts = () => {
             type="text"
             placeholder="Escribe el nombre del producto..."
             className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            onChange={(e) => SetName(e.target.value)}
+            onChange={(e) => SetName(e.target.value)} 
           />
         </div>
 
-        
-
         {/* Filtro por precio */}
-
         <div className="flex flex-col space-y-2">
           <label className="text-lg font-medium text-gray-700">Filtrar por precio</label>
           <div className="flex space-x-4">
-            <input 
-            value={MinPrice}
-            onChange={(e) => SetMinPrice(e.target.value)}
+            <input
+              value={MinPrice}
+              onChange={(e) => SetMinPrice(e.target.value)}
               type="number"
               placeholder="Min"
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
             <input
-            value={MaxPrice}
-            onChange={(e) => SetMaxPrice(e.target.value)}
+              value={MaxPrice}
+              onChange={(e) => SetMaxPrice(e.target.value)}
               type="number"
               placeholder="Max"
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
@@ -75,13 +72,14 @@ export const FilterProducts = () => {
           </select>
         </div>
 
-        {/* Botón de aplicar filtro */}
+        
         <div className="flex justify-center">
-          <button onClick={() => handleApplyFilters()} className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
+          <button onClick={handleApplyFilters} className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
             Aplicar Filtros
           </button>
         </div>
       </div>
+      
       <div>
         {
           displayedProducts.map((product) => (
@@ -89,15 +87,7 @@ export const FilterProducts = () => {
           ))
         }
       </div>
-      <div>
-        {
-          products.map((product) => (
-            <Product key={product.sku} {...product} />
-          ))
-        }
-      </div>
+      
     </div>
-  )
+  );
 }
-
-
