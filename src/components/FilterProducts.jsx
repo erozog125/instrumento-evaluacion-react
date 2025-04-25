@@ -1,19 +1,20 @@
-import React from 'react'
-import { Product } from './Product'
-import { products } from '../assets/products.js'
-import { useState } from 'react'
+import React, { useContext } from 'react';
+import { Product } from './Product';
+import { products } from '../assets/products.js';
+import { NameContext } from './Context.jsx';
 
 export const FilterProducts = () => {
-  const [Name, SetName] = useState(""); 
-  
-  const filteredProducts = products.filter((product) =>
+  const { Name, SetName } = useContext(NameContext);
+
+  // Filtrar productos por nombre
+  const filteredProducts = products?.filter((product) =>
     product?.name?.toLowerCase().includes(Name.toLowerCase())
-  );
+  ) || [];
+
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
       <div className="bg-white shadow-md rounded-lg w-full max-w-4xl p-6 space-y-6">
-
         {/* Título */}
         <h2 className="text-3xl font-semibold text-center text-gray-800">Buscar Productos</h2>
 
@@ -28,10 +29,15 @@ export const FilterProducts = () => {
           />
         </div>
 
+        {/* Lista de productos filtrados */}
         <ul>
-          {filteredProducts.map((product) => (
-            <li key={product.id}>{product.name}</li>
-          ))}
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
+              <li key={product.id}>{product.name}</li>
+            ))
+          ) : (
+            <li className="text-gray-500">No se encontraron productos</li>
+          )}
         </ul>
 
         {/* Filtro por precio */}
@@ -72,15 +78,13 @@ export const FilterProducts = () => {
           </button>
         </div>
       </div>
+
+      {/* Mostrar todos los productos */}
       <div>
-        {
-          products.map((product) => (
-            <Product key={product.sku} {...product} />
-          ))
-        }
+        {products.map((product) => (
+          <Product key={product.sku} {...product} />
+        ))}
       </div>
     </div>
-  )
-}
-
-
+  );
+};

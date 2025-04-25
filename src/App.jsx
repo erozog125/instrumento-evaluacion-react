@@ -1,15 +1,13 @@
-import "./App.css";
-import { FilterProducts } from "./components/FilterProducts";
+import React from 'react';
+import { Context } from './components/Context';
+import { FilterProducts } from './components/FilterProducts';
 
 export function App() {
-  
   return (
-    <>
-    <FilterProducts/>
-      
-    </>
+    <Context>
+<FilterProducts />
+    </Context>
   );
 }
-
 
 
