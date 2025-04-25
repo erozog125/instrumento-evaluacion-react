@@ -2,12 +2,22 @@ import React from 'react'
 import { Product } from './Product'
 import { products } from '../assets/products.js'
 import { useState } from 'react'
+import { useContext } from 'react'
+import { Context } from './Context.jsx'
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
+  const {PriceMin, setPriceMin} = useContext(Context);
+  const {PriceMax, setPriceMax} = useContext(Context);
+
+  const filteredProductsByPrice = PriceMin && PriceMax ? products.filter((product) =>
+    product.price >= PriceMin && product.price <= PriceMax
+  ) : products.filter((product) =>
+    product.price >= 0 && product.price <= 10000000
+  );
   
   const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase())
+    product.name?.toLowerCase().includes(Name.toLowerCase())
   );
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
@@ -67,7 +77,7 @@ export const FilterProducts = () => {
 
         {/* Botón de aplicar filtro */}
         <div className="flex justify-center">
-          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
+          <button onClick={()=> filteredProductsByPrice} className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
             Aplicar Filtros
           </button>
         </div>

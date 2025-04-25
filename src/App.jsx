@@ -1,15 +1,11 @@
-import "./App.css";
-import { FilterProducts } from "./components/FilterProducts";
+import React from 'react'
+import { FilterProducts } from './components/FilterProducts.jsx'
 
-function App() {
-  
+export const App = () => {
   return (
     <>
-     <></>
-      <FilterProducts/>
+    <FilterProducts/>
     </>
-  );
+  )
 }
-
-export default App;
 
