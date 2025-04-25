@@ -1,0 +1,30 @@
+body{
+    background-color: azure;
+}.product-container {
+    margin-top: 0.5rem;
+    max-width: 20rem;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: #f9fafb; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    color: #1d4ed8; 
+  }
+  
+  .product-container h1 {
+    font-size: 1.125rem;
+    font-weight: bold; 
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-container p {
+    font-size: 0.875rem; 
+    font-weight: 500; 
+    margin-bottom: 0.25rem;
+  }
+  
+  .product-container span {
+    font-weight: 400; 
+  }
