@@ -30,11 +30,11 @@ export const FilterProducts = () => {
 
         <ul>
           {filteredProducts.map((product) => (
-            <li key={product.sku} className="p-4 border-b border-gray-200">
-              <h3>{product.nameProduct}</h3>
-              <p>Categoria: {product.category}</p>
-              <p>Precio: {product.price}</p>
-              <p>Descripcion: {product.description}</p>
+            <li key={product.sku} className='p-4 border-b border-gray-200'>
+              <h3 className='text-lg font-semibold text-gray-600'>{product.nameProduct}</h3>
+              <p className='text-sm text-gray-600'>Categoria: {product.category}</p>
+              <p className='text-sm text-gray-600'>Precio: {product.price}</p>
+              <p className='text-sm text-gray-600'>Descripcion: {product.description}</p>
             </li>
           ))}
         </ul>
