@@ -5,9 +5,13 @@ import { useState } from 'react'
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
-  
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase())
+  const [Category, SetCategory] = useState("");
+
+  const filteredProducts = products.filter((product) =>{
+    const matchesName = product.name.toLowerCase().includes(Name.toLowerCase());
+    const matchesCategory = Category ? product.category === Category : true;
+    return matchesName && matchesCategory;
+  }
   );
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
