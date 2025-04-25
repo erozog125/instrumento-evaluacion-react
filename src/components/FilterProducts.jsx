@@ -2,14 +2,18 @@ import React from 'react'
 import { Product } from './Product'
 import { products } from '../assets/products.js'
 import { useState } from 'react'
+import {PriceContext} from './Context/PriceContext.jsx'
+import { usePrice } from './Context/PriceContext';
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
-  
-  const filteredProducts = products.filter((product) =>
-    product.name?.toLowerCase().includes(Name.toLowerCase())
-  
-  );
+  const { minPrice, maxPrice, setMinPrice, setMaxPrice } = usePrice(); // usamos el contexto
+
+  const filteredProducts = products.filter((product) => {
+    const matchName = product.name?.toLowerCase().includes(Name.toLowerCase());
+    const matchPrice = product.price >= minPrice && product.price <= maxPrice;
+    return matchName && matchPrice;
+  });
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -43,11 +47,13 @@ export const FilterProducts = () => {
               type="number"
               placeholder="Min"
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+              onChange={(e) => setMinPrice(Number(e.target.value))}
             />
             <input
               type="number"
               placeholder="Max"
               className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+              onChange={(e) => setMaxPrice(Number(e.target.value))}
             />
           </div>
         </div>
@@ -75,7 +81,7 @@ export const FilterProducts = () => {
       </div>
       <div>
         {
-          products.map((product) => (
+          filteredproducts.map((product) => (
             <Product key={product.sku} {...product} />
           ))
         }
