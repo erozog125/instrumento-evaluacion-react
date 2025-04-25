@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.jsx";
 import { FilterProducts } from "./components/FilterProducts";
 
 function App() {
