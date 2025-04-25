@@ -84,7 +84,13 @@ export const FilterProducts = () => {
           </button>
         </div>
       </div>
-     
+      <div>
+        {
+          filteredProducts.map((product) => (
+            <Product key={product.sku} {...product} />
+          ))
+        }
+      </div>
     </div>
   )
 }
