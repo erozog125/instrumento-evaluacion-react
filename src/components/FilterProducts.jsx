@@ -1,14 +1,23 @@
-import React from 'react'
-import { Product } from './Product'
-import { products } from '../assets/products.js'
-import { useState } from 'react'
+import React, { useState } from 'react';
+import { Product } from './Product';
+import { products } from '../assets/products.js';
 
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
-  
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase())
-  );
+  const [minPrice, setMinPrice] = useState(""); 
+  const [maxPrice, setMaxPrice] = useState(""); 
+
+  // Convertir precios a números para comparar
+  const min = parseFloat(minPrice) || 0;
+  const max = parseFloat(maxPrice) || Infinity;
+
+  const filteredProducts = products.filter((product) => {
+    const matchesName = product.name.toLowerCase().includes(Name.toLowerCase());
+    const price = parseFloat(product.price); // Asegúrate que 'price' en tus productos sea número o string numérico
+    const matchesPrice = price >= min && price <= max;
+
+    return matchesName && matchesPrice;
+  });
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
