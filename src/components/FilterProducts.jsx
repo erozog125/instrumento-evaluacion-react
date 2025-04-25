@@ -17,12 +17,7 @@ export const FilterProducts = () => {
     setFilteredProducts(filtered);
   };
   
-  // Función para resetear filtros
-  const handleReset = () => {
-    setMinPrice("");
-    setMaxPrice("");
-    setFilteredProducts(products);
-  };
+
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -38,7 +33,6 @@ export const FilterProducts = () => {
             type="text"
             placeholder="Escribe el nombre del producto..."
             className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            onChange={(e) => SetName(e.target.value)}
           />
         </div>
 
