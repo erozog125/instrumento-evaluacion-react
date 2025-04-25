@@ -10,6 +10,12 @@ export const FilterProducts = () => {
     product.nameProduct.toLowerCase().includes(Name.toLowerCase())
   );
 
+  const [appliedFilters, setAppliedFilters] = useState(products);
+  
+  const handleApplyFilters = () => {
+    setAppliedFilters(filteredProducts);
+  };
+
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -68,14 +74,17 @@ export const FilterProducts = () => {
 
         {/* Botón de aplicar filtro */}
         <div className="flex justify-center">
-          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
-            Aplicar Filtros 
+          <button
+            className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+            onClick={handleApplyFilters}
+          >
+            Aplicar Filtros
           </button>
         </div>
       </div>
       <div>
         {
-          filteredProducts.map((product) => (
+          appliedFilters.map((product) => (
             <Product key={product.sku} {...product} />
           ))
         }
@@ -83,5 +92,3 @@ export const FilterProducts = () => {
     </div>
   )
 }
-
-
