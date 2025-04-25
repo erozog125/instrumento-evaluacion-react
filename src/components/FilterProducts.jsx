@@ -6,13 +6,17 @@ import { useState } from 'react'
 export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
   const [Category, SetCategory] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState(products); // Estado para los productos filtrados
 
-  const filteredProducts = products.filter((product) =>{
-    const matchesName = product.name.toLowerCase().includes(Name.toLowerCase());
-    const matchesCategory = Category ? product.category === Category : true;
-    return matchesName && matchesCategory;
-  }
-  );
+  const applyFilters = () => {
+    const filtered = products.filter((product) => {
+      const matchesName = product.name.toLowerCase().includes(Name.toLowerCase());
+      const matchesCategory = Category ? product.category === Category : true;
+      return matchesName && matchesCategory;
+    });
+    setFilteredProducts(filtered);
+  };
+
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -60,6 +64,7 @@ export const FilterProducts = () => {
           <label className="text-lg font-medium text-gray-700">Filtrar por categoría</label>
           <select
             className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+            onChange={(e) => SetCategory(e.target.value)}
           >
             <option value="">Seleccionar categoría</option>
             <option value="electronics">Electrónica</option>
@@ -71,20 +76,15 @@ export const FilterProducts = () => {
 
         {/* Botón de aplicar filtro */}
         <div className="flex justify-center">
-          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
+          <button
+            className="px-6 py-2 bg-black text-white rounded-lg hover:bg-blue-600 transition duration-300"
+            onClick={applyFilters}
+          >
             Aplicar Filtros
           </button>
         </div>
       </div>
-      <div>
-        {
-          products.map((product) => (
-            <Product key={product.sku} {...product} />
-          ))
-        }
-      </div>
+     
     </div>
   )
 }
-
-
