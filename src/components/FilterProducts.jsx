@@ -7,6 +7,7 @@ export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
   const [selectedCategory, setSelectedCategory] = useState(""); // estado nuevo
   
+  // implmento de filtro por categoria
   const filteredProducts = products.filter((product) => {
     const matchesName = product.name.toLowerCase().includes(Name.toLowerCase());
     const matchesCategory = selectedCategory
@@ -63,6 +64,7 @@ export const FilterProducts = () => {
           <label className="text-lg font-medium text-gray-700">Filtrar por categoría</label>
           <select
             className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+            value={selectedCategory} // agregacion del selec
           >
             <option value="">Seleccionar categoría</option>
             <option value="electronics">Electrónica</option>
