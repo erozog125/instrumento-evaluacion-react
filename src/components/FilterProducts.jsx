@@ -33,7 +33,13 @@ export const FilterProducts = () => {
         </div>
       </div>
       
-
+      {/* Lista de productos filtrados */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+        {filteredProducts.map((product) => (
+          <Product key={product.sku} {...product} />
+        ))}
+      </div>
+    </div>
   )
 }
 
