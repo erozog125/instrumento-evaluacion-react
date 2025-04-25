@@ -1,10 +1,15 @@
-import "./App.css"
-import { FilterProducts } from "./components/FilterProducts"
+import "./App.css";
+import { FilterProducts } from "./components/FilterProducts";
 
-export function App() {
+function App() {
+  
   return (
-    <>      
-      <FilterProducts />
+    <>
+     <></>
+      <FilterProducts/>
     </>
   );
 }
+
+export default App;
+
