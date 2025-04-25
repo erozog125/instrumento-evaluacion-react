@@ -4,7 +4,6 @@ import { products } from '../assets/products.js';
 import { context } from './Context.jsx';
 
 export const FilterProducts = () => {
-  const [name, setName] = useState("");
   const { PriceMin, setPriceMin } = useContext(context);
   const { PriceMax, setPriceMax } = useContext(context);
   const { Message, SetMessage } = useContext(context);
