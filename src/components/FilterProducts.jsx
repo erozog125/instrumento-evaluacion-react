@@ -5,13 +5,22 @@ import { useState } from 'react'
 
 export const FilterProducts = () => {
 
-  const listCategories = ['Electronica', 'Moda', 'Hogar','Deportes']
+  const listCategories = useState(['Electronica', 'Moda', 'Hogar','Deportes'])
 
   const [Name, SetName] = useState(""); 
-  
-  const filteredProducts = products.filter((product) =>
-    product.nameProduct.toLowerCase().includes(Name.toLowerCase())
-  );
+
+  const [filteredProducts, setFilteredProducts] = useState([]);
+ 
+  const filtreCategory = (value) => {
+     products.filter(items => 
+       {if(items.category === value){
+         setFilteredProducts(items)
+         console.log(filteredProducts)
+       }
+     }
+   )
+ }
+
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -62,14 +71,10 @@ export const FilterProducts = () => {
           >
             <option value="">Seleccionar categoría</option>
             <option value="electronics">Electrónica</option>
-            <option value="fashion">Moda</option>
-            <option value="home">Hogar</option>
-            <option value="sports">Deportes</option>
+             <option value="fashion">Moda</option>
+             <option value="home">Hogar</option>
+             <option value="sports">Deportes</option>
           </select>
-
-          {/* {
-            products.map
-          } */}
         </div>
 
         {/* Botón de aplicar filtro */}
