@@ -7,14 +7,18 @@ export const FilterProducts = () => {
   const [Name, SetName] = useState(""); 
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState(products);
   
-   const filteredProducts = products.filter((product) => {
-    const matchesName = product.name && product.name.toLowerCase().includes(Name.toLowerCase());
-    const matchesPrice =
-      (!minPrice || product.price >= parseFloat(minPrice)) &&
-      (!maxPrice || product.price <= parseFloat(maxPrice));
-    return matchesName && matchesPrice;
-  });
+  const handleFilter = () => {
+    const filtered = products.filter((product) => {
+      const matchesName = product.name && product.name.toLowerCase().includes(Name.toLowerCase());
+      const matchesPrice =
+        (!minPrice || product.price >= parseFloat(minPrice)) &&
+        (!maxPrice || product.price <= parseFloat(maxPrice));
+      return matchesName && matchesPrice;
+    });
+    setFilteredProducts(filtered); 
+  };
   
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
@@ -89,6 +93,8 @@ export const FilterProducts = () => {
             <Product key={product.sku} {...product} />
           ))
         }
+
+      
       </div>
     </div>
   )
