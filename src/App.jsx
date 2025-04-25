@@ -22,10 +22,28 @@ function App() {
   };
   
   return (
-    <>
-     <></>
-      <FilterProducts/>
-    </>
+    <div className="container">
+    <h1>Catálogo de Productos</h1>
+
+     <div className="filter-section">
+      <input
+          type="number"
+          placeholder="Precio mínimo"
+          value={minPrice}
+          onChange={(e) => setMinPrice(e.target.value)}/>
+            
+        <input
+          type="number"
+          placeholder="Precio máximo"
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(e.target.value)}
+        />
+         <button onClick={handlePriceFilter}>Filtrar</button>
+        <button onClick={handleReset}>Resetear filtros</button>
+      </div>
+      
+      <FilterProducts products={filteredProducts} />
+    </div>
   );
 }
 
