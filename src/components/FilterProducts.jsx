@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Product } from './Product'
 import { products } from '../assets/products.js'
-import { useState } from 'react'
 
 export const FilterProducts = () => {
-  const [Name, SetName] = useState(""); 
-  
+  const [Name, SetName] = useState("");
+
   const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(Name.toLowerCase())
+    product.name?.toLowerCase().includes(Name.toLowerCase())
   );
+
   return (
     <div className="flex flex-col items-center p-8 bg-gray-50 min-h-screen">
       {/* Contenedor principal */}
@@ -18,7 +18,8 @@ export const FilterProducts = () => {
         <h2 className="text-3xl font-semibold text-center text-gray-800">Buscar Productos</h2>
 
         {/* Barra de búsqueda */}
-        <div className="flex flex-col space-y-2">
+
+        {/* <div className="flex flex-col space-y-2">
           <label className="text-lg font-medium text-gray-700">Buscar por nombre</label>
           <input
             type="text"
@@ -26,13 +27,37 @@ export const FilterProducts = () => {
             className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             onChange={(e) => SetName(e.target.value)}
           />
+        </div> */}
+        {/* Barra de búsqueda */}
+
+        <div className="flex flex-col space-y-2 relative">
+          <label className="text-lg font-medium text-gray-700">Buscar por nombre</label>
+          <input
+            type="text"
+            placeholder="Escribe el nombre del producto..."
+            className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+            value={Name}
+            onChange={(e) => SetName(e.target.value)}
+          />
+
+          {Name && (
+            <ul className="absolute top-full mt-1 w-full bg-white border border-gray-300 rounded-lg shadow z-10 max-h-40 overflow-y-auto">
+              {filteredProducts.slice(0, 5).map((product) => (
+                <li
+                  key={product.id}
+                  className="px-4 py-2 hover:bg-blue-100 cursor-pointer"
+                  onClick={() => SetName(product.name)}
+                >
+                  {product.name}
+                </li>
+              ))}
+              {filteredProducts.length === 0 && (
+                <li className="px-4 py-2 text-gray-500">No hay coincidencias</li>
+              )}
+            </ul>
+          )}
         </div>
 
-        <ul>
-          {filteredProducts.map((product) => (
-            <li key={product.id}>{product.name}</li>
-          ))}
-        </ul>
 
         {/* Filtro por precio */}
         <div className="flex flex-col space-y-2">
@@ -72,15 +97,13 @@ export const FilterProducts = () => {
           </button>
         </div>
       </div>
-      <div>
-        {
-          products.map((product) => (
-            <Product key={product.sku} {...product} />
-          ))
-        }
+
+      {/* Lista de productos filtrados */}
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredProducts.map((product) => (
+          <Product key={product.sku} {...product} />
+        ))}
       </div>
     </div>
   )
 }
-
-
